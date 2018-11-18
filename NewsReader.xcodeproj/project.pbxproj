@@ -7,29 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4122720A21A142B3003A4890 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4122720921A142B3003A4890 /* AppDelegate.m */; };
-		4122720D21A142B3003A4890 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4122720C21A142B3003A4890 /* ViewController.m */; };
-		4122721021A142B3003A4890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4122720E21A142B3003A4890 /* Main.storyboard */; };
-		4122721221A142B6003A4890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4122721121A142B6003A4890 /* Assets.xcassets */; };
-		4122721521A142B6003A4890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4122721321A142B6003A4890 /* LaunchScreen.storyboard */; };
-		4122721821A142B6003A4890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4122721721A142B6003A4890 /* main.m */; };
+		41ADAC76219F86ED0096052A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC75219F86ED0096052A /* AppDelegate.m */; };
+		41ADAC79219F86ED0096052A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC78219F86ED0096052A /* ViewController.m */; };
+		41ADAC7C219F86ED0096052A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41ADAC7A219F86ED0096052A /* Main.storyboard */; };
+		41ADAC7E219F86F10096052A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41ADAC7D219F86F10096052A /* Assets.xcassets */; };
+		41ADAC81219F86F20096052A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41ADAC7F219F86F20096052A /* LaunchScreen.storyboard */; };
+		41ADAC84219F86F20096052A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC83219F86F20096052A /* main.m */; };
+		41ADAC8F219F91390096052A /* AKArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC8E219F91390096052A /* AKArticle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4122720521A142B3003A4890 /* NewsReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4122720821A142B3003A4890 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4122720921A142B3003A4890 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4122720B21A142B3003A4890 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4122720C21A142B3003A4890 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		4122720F21A142B3003A4890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4122721121A142B6003A4890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4122721421A142B6003A4890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4122721621A142B6003A4890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4122721721A142B6003A4890 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		41ADAC71219F86ED0096052A /* NewsReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41ADAC74219F86ED0096052A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		41ADAC75219F86ED0096052A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		41ADAC77219F86ED0096052A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		41ADAC78219F86ED0096052A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		41ADAC7B219F86ED0096052A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		41ADAC7D219F86F10096052A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		41ADAC80219F86F20096052A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		41ADAC82219F86F20096052A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41ADAC83219F86F20096052A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		41ADAC8D219F91390096052A /* AKArticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKArticle.h; sourceTree = "<group>"; };
+		41ADAC8E219F91390096052A /* AKArticle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKArticle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4122720221A142B3003A4890 /* Frameworks */ = {
+		41ADAC6E219F86ED0096052A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,34 +42,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		412271FC21A142B2003A4890 = {
+		41ADAC68219F86ED0096052A = {
 			isa = PBXGroup;
 			children = (
-				4122720721A142B3003A4890 /* NewsReader */,
-				4122720621A142B3003A4890 /* Products */,
+				41ADAC73219F86ED0096052A /* NewsReader */,
+				41ADAC72219F86ED0096052A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		4122720621A142B3003A4890 /* Products */ = {
+		41ADAC72219F86ED0096052A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4122720521A142B3003A4890 /* NewsReader.app */,
+				41ADAC71219F86ED0096052A /* NewsReader.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4122720721A142B3003A4890 /* NewsReader */ = {
+		41ADAC73219F86ED0096052A /* NewsReader */ = {
 			isa = PBXGroup;
 			children = (
-				4122720821A142B3003A4890 /* AppDelegate.h */,
-				4122720921A142B3003A4890 /* AppDelegate.m */,
-				4122720B21A142B3003A4890 /* ViewController.h */,
-				4122720C21A142B3003A4890 /* ViewController.m */,
-				4122720E21A142B3003A4890 /* Main.storyboard */,
-				4122721121A142B6003A4890 /* Assets.xcassets */,
-				4122721321A142B6003A4890 /* LaunchScreen.storyboard */,
-				4122721621A142B6003A4890 /* Info.plist */,
-				4122721721A142B6003A4890 /* main.m */,
+				41ADAC8D219F91390096052A /* AKArticle.h */,
+				41ADAC8E219F91390096052A /* AKArticle.m */,
+				41ADAC74219F86ED0096052A /* AppDelegate.h */,
+				41ADAC75219F86ED0096052A /* AppDelegate.m */,
+				41ADAC77219F86ED0096052A /* ViewController.h */,
+				41ADAC78219F86ED0096052A /* ViewController.m */,
+				41ADAC7A219F86ED0096052A /* Main.storyboard */,
+				41ADAC7D219F86F10096052A /* Assets.xcassets */,
+				41ADAC7F219F86F20096052A /* LaunchScreen.storyboard */,
+				41ADAC82219F86F20096052A /* Info.plist */,
+				41ADAC83219F86F20096052A /* main.m */,
 			);
 			path = NewsReader;
 			sourceTree = "<group>";
@@ -74,38 +79,38 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4122720421A142B3003A4890 /* NewsReader */ = {
+		41ADAC70219F86ED0096052A /* NewsReader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4122721B21A142B6003A4890 /* Build configuration list for PBXNativeTarget "NewsReader" */;
+			buildConfigurationList = 41ADAC87219F86F20096052A /* Build configuration list for PBXNativeTarget "NewsReader" */;
 			buildPhases = (
-				4122720121A142B3003A4890 /* Sources */,
-				4122720221A142B3003A4890 /* Frameworks */,
-				4122720321A142B3003A4890 /* Resources */,
+				41ADAC6D219F86ED0096052A /* Sources */,
+				41ADAC6E219F86ED0096052A /* Frameworks */,
+				41ADAC6F219F86ED0096052A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = NewsReader;
-			productName = NewsReader;
-			productReference = 4122720521A142B3003A4890 /* NewsReader.app */;
+			productName = readnews;
+			productReference = 41ADAC71219F86ED0096052A /* NewsReader.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		412271FD21A142B2003A4890 /* Project object */ = {
+		41ADAC69219F86ED0096052A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = AK;
+				ORGANIZATIONNAME = AKA;
 				TargetAttributes = {
-					4122720421A142B3003A4890 = {
+					41ADAC70219F86ED0096052A = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
-			buildConfigurationList = 4122720021A142B3003A4890 /* Build configuration list for PBXProject "NewsReader" */;
+			buildConfigurationList = 41ADAC6C219F86ED0096052A /* Build configuration list for PBXProject "NewsReader" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,55 +118,56 @@
 				en,
 				Base,
 			);
-			mainGroup = 412271FC21A142B2003A4890;
-			productRefGroup = 4122720621A142B3003A4890 /* Products */;
+			mainGroup = 41ADAC68219F86ED0096052A;
+			productRefGroup = 41ADAC72219F86ED0096052A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4122720421A142B3003A4890 /* NewsReader */,
+				41ADAC70219F86ED0096052A /* NewsReader */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4122720321A142B3003A4890 /* Resources */ = {
+		41ADAC6F219F86ED0096052A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4122721521A142B6003A4890 /* LaunchScreen.storyboard in Resources */,
-				4122721221A142B6003A4890 /* Assets.xcassets in Resources */,
-				4122721021A142B3003A4890 /* Main.storyboard in Resources */,
+				41ADAC81219F86F20096052A /* LaunchScreen.storyboard in Resources */,
+				41ADAC7E219F86F10096052A /* Assets.xcassets in Resources */,
+				41ADAC7C219F86ED0096052A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4122720121A142B3003A4890 /* Sources */ = {
+		41ADAC6D219F86ED0096052A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4122720D21A142B3003A4890 /* ViewController.m in Sources */,
-				4122721821A142B6003A4890 /* main.m in Sources */,
-				4122720A21A142B3003A4890 /* AppDelegate.m in Sources */,
+				41ADAC79219F86ED0096052A /* ViewController.m in Sources */,
+				41ADAC84219F86F20096052A /* main.m in Sources */,
+				41ADAC8F219F91390096052A /* AKArticle.m in Sources */,
+				41ADAC76219F86ED0096052A /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4122720E21A142B3003A4890 /* Main.storyboard */ = {
+		41ADAC7A219F86ED0096052A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4122720F21A142B3003A4890 /* Base */,
+				41ADAC7B219F86ED0096052A /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		4122721321A142B6003A4890 /* LaunchScreen.storyboard */ = {
+		41ADAC7F219F86F20096052A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4122721421A142B6003A4890 /* Base */,
+				41ADAC80219F86F20096052A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -169,7 +175,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4122721921A142B6003A4890 /* Debug */ = {
+		41ADAC85219F86F20096052A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -228,7 +234,7 @@
 			};
 			name = Debug;
 		};
-		4122721A21A142B6003A4890 /* Release */ = {
+		41ADAC86219F86F20096052A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -281,62 +287,62 @@
 			};
 			name = Release;
 		};
-		4122721C21A142B6003A4890 /* Debug */ = {
+		41ADAC88219F86F20096052A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSD548XWQ4;
-				INFOPLIST_FILE = NewsReader/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NewsReader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.home.NewsReader;
+				PRODUCT_BUNDLE_IDENTIFIER = net.home.newsreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		4122721D21A142B6003A4890 /* Release */ = {
+		41ADAC89219F86F20096052A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSD548XWQ4;
-				INFOPLIST_FILE = NewsReader/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NewsReader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.home.NewsReader;
+				PRODUCT_BUNDLE_IDENTIFIER = net.home.newsreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4122720021A142B3003A4890 /* Build configuration list for PBXProject "NewsReader" */ = {
+		41ADAC6C219F86ED0096052A /* Build configuration list for PBXProject "NewsReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4122721921A142B6003A4890 /* Debug */,
-				4122721A21A142B6003A4890 /* Release */,
+				41ADAC85219F86F20096052A /* Debug */,
+				41ADAC86219F86F20096052A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4122721B21A142B6003A4890 /* Build configuration list for PBXNativeTarget "NewsReader" */ = {
+		41ADAC87219F86F20096052A /* Build configuration list for PBXNativeTarget "NewsReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4122721C21A142B6003A4890 /* Debug */,
-				4122721D21A142B6003A4890 /* Release */,
+				41ADAC88219F86F20096052A /* Debug */,
+				41ADAC89219F86F20096052A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 412271FD21A142B2003A4890 /* Project object */;
+	rootObject = 41ADAC69219F86ED0096052A /* Project object */;
 }

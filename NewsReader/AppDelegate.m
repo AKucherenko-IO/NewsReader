@@ -2,13 +2,14 @@
 //  AppDelegate.m
 //  NewsReader
 //
-//  Created by Andrei Kucherenko on 18/11/2018.
-//  Copyright © 2018 AK. All rights reserved.
+//  Created by Andrei Kucherenko on 17/11/2018.
+//  Copyright © 2018 AKA. All rights reserved.
 //
 
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
+
 
 @end
 
@@ -46,6 +47,5 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 @end

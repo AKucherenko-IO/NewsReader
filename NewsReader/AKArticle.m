@@ -1,14 +1,13 @@
 //
-//  ViewController.h
+//  AKArticle.m
 //  NewsReader
 //
 //  Created by Andrei Kucherenko on 17/11/2018.
 //  Copyright © 2018 AKA. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AKArticle.h"
 
-@interface ViewController : UITableViewController
+@implementation AKArticle
 
 @end
-
