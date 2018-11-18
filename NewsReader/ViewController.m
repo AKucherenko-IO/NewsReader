@@ -10,12 +10,13 @@
 #import <Foundation/Foundation.h>
 #import "AKArticle.h"
 
-//const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
-const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?country=ru&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
+const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
+//const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?country=ru&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 @interface ViewController ()
 
 @property (strong,nonatomic) NSMutableArray *newsRecords;
 @property (weak,nonatomic) NSString *testString;
+@property (assign,nonatomic) BOOL isTransfered;
 
 @end
 
@@ -24,8 +25,10 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?country=ru&apiK
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.newsRecords = [[NSMutableArray alloc] init];
-    [self retrieveNews];
+    if (!_isTransfered) {
+        self.newsRecords = [[NSMutableArray alloc] init];
+        [self retrieveNews];
+    }
     self.testString = @"Test Var";
     
 }
@@ -35,14 +38,36 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?country=ru&apiK
     NSLog(@"retrieveData");
     NSError *error;
     NSString *url_string = [NSString stringWithFormat: @"%@", newsURL];
-    NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:url_string]];
-    if (data) {
-        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        if (!error) {
-            NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
-            [self updateArticlesData:recievedArticles];
-        }
-    }
+//    NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:url_string]];
+//    if (data) {
+//        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//
+//        if (!error) {
+//            NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
+//            [self updateArticlesData:recievedArticles];
+//        }
+//    }
+
+    NSURL *url = [NSURL URLWithString:url_string];
+
+    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+                                          dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              if (data) {
+                                                  NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                                                  if (!error) {
+                                                      NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
+                                                      [self updateArticlesData:recievedArticles];
+                                                  }
+                                              }
+                                              if (!self.isTransfered){
+                                                  self.isTransfered = TRUE;
+                                              }
+                                              
+                                          }];
+    
+    [downloadTask resume];
+//    [self.tableView reloadData];
+
 }
 
 - (void)updateArticlesData:(NSArray *)articlesArray{
@@ -52,11 +77,11 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?country=ru&apiK
         article.content = [articleHeader objectForKey:@"content"];
         article.contentDescription = [articleHeader objectForKey:@"description"];
         article.url = [articleHeader objectForKey:@"url"];
-//        if (![article.content isEqual:[NSNull null]]) {
-//            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.content,article.url);
-//        }else{
-//            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.contentDescription,article.url);
-//        }
+        if (![article.content isEqual:[NSNull null]]) {
+            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.content,article.url);
+        }else{
+            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.contentDescription,article.url);
+        }
         [self.newsRecords addObject:article];
     }
 }
@@ -93,6 +118,7 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?country=ru&apiK
     cell.textLabel.textColor = [UIColor blueColor];
     AKArticle *articleForRow = [self.newsRecords objectAtIndex:indexPath.row];
     cell.textLabel.text = articleForRow.title;
+    NSLog(@"%@",articleForRow.title);
 //    cell.detailTextLabel.text = self.testString;
 //    articleForRow.contentDescription;
     return cell;
