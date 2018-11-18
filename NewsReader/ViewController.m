@@ -15,7 +15,6 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
 @interface ViewController ()
 
 @property (strong,nonatomic) NSMutableArray *newsRecords;
-@property (weak,nonatomic) NSString *testString;
 @property (assign,nonatomic) BOOL isTransfered;
 
 @end
@@ -29,50 +28,32 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
         self.newsRecords = [[NSMutableArray alloc] init];
         [self retrieveNews];
     }
-    self.testString = @"Test Var";
     
 }
 
 #pragma mark - retrieveNews
 - (void)retrieveNews{
     NSLog(@"retrieveData");
-    NSError *error;
     NSString *url_string = [NSString stringWithFormat: @"%@", newsURL];
-//    NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:url_string]];
-//    if (data) {
-//        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-//
-//        if (!error) {
-//            NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
-//            [self updateArticlesData:recievedArticles];
-//        }
-//    }
 
     NSURL *url = [NSURL URLWithString:url_string];
 
     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
                                           dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              if (data) {
                                                   NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                                                   if (!error) {
                                                       NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
                                                       [self updateArticlesData:recievedArticles];
                                                   }
-                                              }
-                                              if (!self.isTransfered){
-                                                  self.isTransfered = TRUE;
-                                              }
+                                              self.isTransfered = TRUE;
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
                                                   [self.tableView reloadData];
-                                                  
                                               });
                                               
                                           }];
     
     [downloadTask resume];
     
-
 }
 
 - (void)updateArticlesData:(NSArray *)articlesArray{
@@ -82,11 +63,11 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
         article.content = [articleHeader objectForKey:@"content"];
         article.contentDescription = [articleHeader objectForKey:@"description"];
         article.url = [articleHeader objectForKey:@"url"];
-        if (![article.content isEqual:[NSNull null]]) {
-            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.content,article.url);
-        }else{
-            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.contentDescription,article.url);
-        }
+//        if (![article.content isEqual:[NSNull null]]) {
+//            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.content,article.url);
+//        }else{
+//            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.contentDescription,article.url);
+//        }
         [self.newsRecords addObject:article];
     }
 }
@@ -94,19 +75,15 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
 #pragma mark - TableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"numberOfSectionsInTableView:%d",1);
     return 1;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *sectionTitle = [NSString stringWithFormat:@"Latest news in section#%ld",(long)section];
-    NSLog(@"titleForHeaderInSection:%ld",(long)section);
-    return sectionTitle;
+   
+    return @"Latest news in section";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    NSLog(@"records=%lu section=%ld ",(unsigned long)[self.newsRecords count],(long)section);
-    
+
     return [self.newsRecords count];
 }
 
@@ -120,17 +97,15 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:articleIdentifier];
     }
-    cell.textLabel.textColor = [UIColor blueColor];
     AKArticle *articleForRow = [self.newsRecords objectAtIndex:indexPath.row];
     cell.textLabel.text = articleForRow.title;
-    NSLog(@"%@",articleForRow.title);
 //    cell.detailTextLabel.text = self.testString;
 //    articleForRow.contentDescription;
     return cell;
 }
 #pragma mark - TableView Delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//}
 
 @end
