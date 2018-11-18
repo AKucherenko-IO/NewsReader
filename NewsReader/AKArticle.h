@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AKArticle : NSObject
 
-@property (weak,nonatomic) NSString *title;
-@property (weak,nonatomic) NSString *content;
-@property (weak,nonatomic) NSString *contentDescription;
-@property (weak,nonatomic) NSString *url;
+@property (strong,nonatomic) NSString *title;
+@property (strong,nonatomic) NSString *content;
+@property (strong,nonatomic) NSString *contentDescription;
+@property (strong,nonatomic) NSString *url;
 
 @end
 

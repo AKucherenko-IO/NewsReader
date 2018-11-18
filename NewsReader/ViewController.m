@@ -24,7 +24,7 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    if (!_isTransfered) {
+    if (!self.isTransfered) {
         self.newsRecords = [[NSMutableArray alloc] init];
         [self retrieveNews];
     }
@@ -40,6 +40,7 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
 
     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
                                           dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              if (data) {
                                                   NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                                                   if (!error) {
                                                       NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
@@ -49,7 +50,7 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [self.tableView reloadData];
                                               });
-                                              
+                                              }
                                           }];
     
     [downloadTask resume];
@@ -63,11 +64,6 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
         article.content = [articleHeader objectForKey:@"content"];
         article.contentDescription = [articleHeader objectForKey:@"description"];
         article.url = [articleHeader objectForKey:@"url"];
-//        if (![article.content isEqual:[NSNull null]]) {
-//            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.content,article.url);
-//        }else{
-//            NSLog(@"title:%@ \nContent: %@\nURL: %@",article.title,article.contentDescription,article.url);
-//        }
         [self.newsRecords addObject:article];
     }
 }
@@ -79,7 +75,7 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
    
-    return @"Latest news in section";
+    return @"Latest news";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -90,17 +86,19 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString* articleIdentifier = @"articleCell";
-    NSLog(@"indexPath:%ld",(long)indexPath.row);
         
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:articleIdentifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:articleIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:articleIdentifier];
     }
     AKArticle *articleForRow = [self.newsRecords objectAtIndex:indexPath.row];
+    cell.textLabel.numberOfLines = 2 ;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.text = articleForRow.title;
-//    cell.detailTextLabel.text = self.testString;
-//    articleForRow.contentDescription;
+    cell.detailTextLabel.numberOfLines = 10;
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.detailTextLabel.text = articleForRow.content;
     return cell;
 }
 #pragma mark - TableView Delegate
