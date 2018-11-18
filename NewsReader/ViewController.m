@@ -66,7 +66,11 @@ const NSString *newsURL = @"https://newsapi.org/v2/top-headlines?sources=bbc-new
                                           }];
     
     [downloadTask resume];
-//    [self.tableView reloadData];
+    if (self.isTransfered){
+        self.isTransfered = FALSE;
+        [self.tableView reloadData];
+    }
+    
 
 }
 
