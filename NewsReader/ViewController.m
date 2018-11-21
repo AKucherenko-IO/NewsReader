@@ -16,8 +16,8 @@ NSString * const NEWS_URL = @"https://newsapi.org/v2/top-headlines?sources=bbc-n
 NSString * const TITLE_FOR_HEADER_INSECTION= @"Latest news";
 NSString * const ARTICLE_IDENTIFIER = @"articleCell";
 
-const NSInteger TITLE_NUMBER_OF_LINES = 2;
-const NSInteger CONTENT_NUMBER_OF_LINES = 10;
+//const NSInteger TITLE_NUMBER_OF_LINES = 0;
+//const NSInteger CONTENT_NUMBER_OF_LINES = 0;
 const NSInteger NUMBER_OF_SECTIONS = 1;
 
 @interface ViewController ()
@@ -67,22 +67,26 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 
 - (void)updateArticlesData:(NSArray *)articlesArray{
     for (NSDictionary *articleHeader in articlesArray) {
+        
         AKArticle *article = [[AKArticle alloc] init];
         article.title = [articleHeader objectForKey:@"title"];
+        article.url = [articleHeader objectForKey:@"url"];
+        article.urlToImage = [articleHeader objectForKey:@"urlToImage"];
+        article.publishedAt = [articleHeader objectForKey:@"publishedAt"];
+        article.contentDescription = [articleHeader objectForKey:@"description"];
         article.content = [articleHeader objectForKey:@"content"];
-        if ([article.content isEqual:[NSNull null]]) {
-            NSString *contentDescription = [articleHeader objectForKey:@"description"];
-            if (![contentDescription isEqual:[NSNull null]]) {
-                article.content = contentDescription;
+
+        if ([article.contentDescription isEqual:[NSNull null]]) {
+            if (![article.content isEqual:[NSNull null]]) {
+                article.contentDescription = article.content;
             }else{
+                article.contentDescription = @"";
                 article.content = @"";
             }
+        }else if ([article.content isEqual:[NSNull null]]){
+            article.content = @"";
         }
-        article.contentDescription = [articleHeader objectForKey:@"description"];
-        if ([article.contentDescription isEqual:[NSNull null]]) {
-            article.contentDescription = @"";
-        }
-        article.url = [articleHeader objectForKey:@"url"];
+        
         [self.newsRecords addObject:article];
     }
 }
@@ -90,6 +94,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 #pragma mark - TableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return NUMBER_OF_SECTIONS;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -110,42 +115,29 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ARTICLE_IDENTIFIER];
     }
     AKArticle *articleForRow = [self.newsRecords objectAtIndex:indexPath.row];
-    cell.textLabel.numberOfLines = TITLE_NUMBER_OF_LINES ;
+//    cell.textLabel.numberOfLines = TITLE_NUMBER_OF_LINES ;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.text = articleForRow.title;
-    cell.detailTextLabel.numberOfLines = CONTENT_NUMBER_OF_LINES;
+//    cell.detailTextLabel.numberOfLines = CONTENT_NUMBER_OF_LINES;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.detailTextLabel.text = articleForRow.content;
+    cell.detailTextLabel.text = articleForRow.contentDescription;
+    
     return cell;
-}
-#pragma mark - TableView Delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
 }
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     AKArticle *articleForRow = [self.newsRecords objectAtIndex:indexPath.row];
-    
-    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:nil action:nil];
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButtonItem;
+    self.navigationItem.backBarButtonItem.tintColor = [UIColor lightGrayColor];
     AKArticleDetailsViewController *articleViewController = segue.destinationViewController;
     articleViewController.delegate = self;
-    articleViewController.navigationItem.title = @"Article";
-    articleViewController.articleURL = articleForRow.url;
-    
-//    let backButton = UIBarButtonItem()
-//    backButton.title = "Cancel"
-//    navigationItem.backBarButtonItem = backButton
-//    let editTruckViewControoler = segue.destination as! AKTruckEditViewController
-//    editTruckViewControoler.delegate = self
-//    editTruckViewControoler.navigationItem.title = "Edit Truck Details"
-//    editTruckViewControoler.truckDetails = self.truckDetails
+    articleViewController.article = articleForRow;
+
 }
 
 @end

@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic) NSString *content;
 @property (strong,nonatomic) NSString *contentDescription;
 @property (strong,nonatomic) NSString *url;
+@property (strong,nonatomic) NSString *urlToImage;
+@property (strong,nonatomic) NSString *publishedAt;
 
 @end
 

@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
+#import "AKArticle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AKArticleDetailsViewController : UIViewController <WKNavigationDelegate>
+@interface AKArticleDetailsViewController : UIViewController
 
 @property (strong,nonatomic)  UIViewController *delegate;
-@property (strong, nonatomic) NSString *articleURL;
+@property (strong, nonatomic) AKArticle *article;
 
 @end
 
