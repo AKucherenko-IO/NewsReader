@@ -13,11 +13,9 @@
 
 NSString * const NEWS_URL = @"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 //NSString * const  NEWS_URL = @"https://newsapi.org/v2/top-headlines?country=ru&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
-NSString * const TITLE_FOR_HEADER_INSECTION= @"Latest news";
+NSString * const NAVIGATION_TITLE= @"Breaking news";
 NSString * const ARTICLE_IDENTIFIER = @"articleCell";
 
-//const NSInteger TITLE_NUMBER_OF_LINES = 0;
-//const NSInteger CONTENT_NUMBER_OF_LINES = 0;
 const NSInteger NUMBER_OF_SECTIONS = 1;
 
 @interface ViewController ()
@@ -31,7 +29,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.title = NAVIGATION_TITLE;
     if (!self.isTransfered) {
         self.newsRecords = [[NSMutableArray alloc] init];
         [self retrieveNews];
@@ -97,10 +95,10 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
     
     return NUMBER_OF_SECTIONS;
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-   
-    return TITLE_FOR_HEADER_INSECTION;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//   
+//    return TITLE_FOR_HEADER_INSECTION;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
@@ -115,10 +113,8 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ARTICLE_IDENTIFIER];
     }
     AKArticle *articleForRow = [self.newsRecords objectAtIndex:indexPath.row];
-//    cell.textLabel.numberOfLines = TITLE_NUMBER_OF_LINES ;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.text = articleForRow.title;
-//    cell.detailTextLabel.numberOfLines = CONTENT_NUMBER_OF_LINES;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.detailTextLabel.text = articleForRow.contentDescription;
     
