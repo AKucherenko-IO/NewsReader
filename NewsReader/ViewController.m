@@ -15,13 +15,16 @@ NSString * const NEWS_URL = @"https://newsapi.org/v2/top-headlines?sources=bbc-n
 //NSString * const  NEWS_URL = @"https://newsapi.org/v2/top-headlines?country=ru&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 NSString * const NAVIGATION_TITLE= @"Breaking news";
 NSString * const ARTICLE_IDENTIFIER = @"articleCell";
+NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 
 const NSInteger NUMBER_OF_SECTIONS = 1;
 
 @interface ViewController ()
 
 @property (strong,nonatomic) NSMutableArray *newsRecords;
-@property (assign,nonatomic) BOOL isTransfered;
+@property (strong,nonatomic) NSString *storedPublishedAtDate;
+@property (assign,nonatomic) BOOL isStored;
+@property (assign,nonatomic) BOOL toRefreshData;
 
 @end
 
@@ -29,13 +32,17 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:DATE_FORMAT];
+    
     self.navigationItem.title = NAVIGATION_TITLE;
-    if (!self.isTransfered) {
-        self.newsRecords = [[NSMutableArray alloc] init];
-        [self retrieveNews];
-    }
+    
+    self.newsRecords = [[NSMutableArray alloc] init];
+    [self retrieveNews];
     
 }
+
 
 #pragma mark - retrieveNews
 - (void)retrieveNews{
@@ -52,9 +59,10 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
                                                       NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
                                                       [weakSelf updateArticlesData:recievedArticles];
                                                   }
-                                              weakSelf.isTransfered = TRUE;
                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                  if (weakSelf.toRefreshData) {
                                                   [weakSelf.tableView reloadData];
+                                                  }
                                               });
                                               }
                                           }];
@@ -64,6 +72,13 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 }
 
 - (void)updateArticlesData:(NSArray *)articlesArray{
+    if (!self.isStored) {
+        NSDictionary *latestArticle = [articlesArray objectAtIndex:0];
+        self.storedPublishedAtDate = [latestArticle objectForKey:@"publishedAt"];
+        self.toRefreshData = TRUE;
+        self.isStored = TRUE;
+    }
+    
     for (NSDictionary *articleHeader in articlesArray) {
         
         AKArticle *article = [[AKArticle alloc] init];
@@ -89,6 +104,22 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
     }
 }
 
+- (BOOL) shouldRefreshTableView:(NSString *) publishedAt {
+    
+    //    NSString *publishedAt = @"2018-11-22T00:19:29Z";
+        NSDateFormatter *publishedAtFormater = [[NSDateFormatter alloc] init];
+        [publishedAtFormater setDateFormat:DATE_FORMAT];
+    
+        NSDate *publishedAtDate = [publishedAtFormater dateFromString:publishedAt];
+        NSDate *storedPublishedAtDate = [publishedAtFormater dateFromString:self.storedPublishedAtDate];
+    
+        if ([[publishedAtDate laterDate:storedPublishedAtDate] isEqualToDate:publishedAtDate]) {
+            
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+}
 #pragma mark - TableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
