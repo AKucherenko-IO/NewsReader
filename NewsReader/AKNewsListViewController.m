@@ -1,20 +1,19 @@
 //
-//  ViewController.m
+//  AKNewsListViewController.m
 //  NewsReader
 //
 //  Created by Andrei Kucherenko on 17/11/2018.
 //  Copyright © 2018 AKA. All rights reserved.
 //
 
-#import "ViewController.h"
 #import <Foundation/Foundation.h>
 #import "AKArticle.h"
+#import "AKNewsListViewController.h"
 #import "AKArticleDetailsViewController.h"
 
 #pragma mark - Constants
 
 //NSString * const NEWS_URL = @"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
-//NSString * const  NEWS_URL = @"https://newsapi.org/v2/top-headlines?country=ru&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 NSString * const  NEWS_URL = @"https://newsapi.org/v2/top-headlines?country=us&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 NSString * const NAVIGATION_TITLE= @"Breaking news";
 NSString * const ARTICLE_IDENTIFIER = @"articleCell";
@@ -24,7 +23,7 @@ NSInteger const UPDATE_INTERVAL = 5*60 ;
 
 const NSInteger NUMBER_OF_SECTIONS = 1;
 
-@interface ViewController ()
+@interface AKNewsListViewController ()
 
 @property (strong,nonatomic) NSMutableArray *newsRecords;
 @property (strong,nonatomic) NSString *storedPublishedAtDate;
@@ -33,7 +32,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 
 @end
 
-@implementation ViewController
+@implementation AKNewsListViewController
 
 - (void)viewDidLoad {
 
@@ -59,13 +58,11 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 - (void)timerFireMethod:(NSTimer *)timer {
     
     [self downloadNews];
-    NSLog(@"Timer executed");
+
 }
 
 #pragma mark - retrieveNews
 - (void)downloadNews{
-
-    NSLog(@"retrieveData");
 
     NSURL *url = [NSURL URLWithString:NEWS_URL];
     
@@ -96,7 +93,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
     if (!self.isStored) {
         NSDictionary *latestArticle = [articlesArray objectAtIndex:0];
         NSString *latestArticleData = [latestArticle objectForKey:@"publishedAt"];
-        self.toRefreshData = [self shouldRefreshTableView:latestArticleData];
+        [self shouldRefreshTableView:latestArticleData];
         self.storedPublishedAtDate = latestArticleData;
         self.isStored = TRUE;
         self.newsRecords = [[NSMutableArray alloc] init];
@@ -128,7 +125,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 
 }
 
-- (BOOL) shouldRefreshTableView:(NSString *) publishedAt {
+- (void) shouldRefreshTableView:(NSString *) publishedAt {
     
 //  NSString *publishedAt = @"2018-11-22T00:19:29Z";
     NSDateFormatter *publishedAtFormater = [[NSDateFormatter alloc] init];
@@ -136,15 +133,11 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 
     NSDate *publishedAtDate = [publishedAtFormater dateFromString:publishedAt];
     NSDate *storedPublishedAtDate = [publishedAtFormater dateFromString:self.storedPublishedAtDate];
-    NSString *publishedAtDateString = [publishedAtFormater stringFromDate:publishedAtDate];
-    NSString *storedPublishedAtDateString = [publishedAtFormater stringFromDate:storedPublishedAtDate];
     
     if (![storedPublishedAtDate isEqualToDate:publishedAtDate]) {
-        NSLog(@"TRUE: %@ != %@",storedPublishedAtDateString,publishedAtDateString);
-        return TRUE;
+        self.toRefreshData = TRUE;
     } else {
-        NSLog(@"FALSE: %@ = %@",storedPublishedAtDateString,publishedAtDateString);
-        return FALSE;
+        self.toRefreshData = FALSE;
     }
 
 }
@@ -154,8 +147,6 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 - (void) refreshNews:(UIRefreshControl *) refresh {
     
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:REFRESH_STRING];
-    
-    NSLog(@"Refreshing");
     
     [self downloadNews];
     

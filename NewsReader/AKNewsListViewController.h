@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  AKNewsListViewController.h
 //  NewsReader
 //
 //  Created by Andrei Kucherenko on 17/11/2018.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController
+@interface AKNewsListViewController : UITableViewController
 
 
 

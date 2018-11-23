@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		414ACA3321A3DD8800B38586 /* AKArticleDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 414ACA3221A3DD8800B38586 /* AKArticleDetailsViewController.m */; };
 		41ADAC76219F86ED0096052A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC75219F86ED0096052A /* AppDelegate.m */; };
-		41ADAC79219F86ED0096052A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC78219F86ED0096052A /* ViewController.m */; };
+		41ADAC79219F86ED0096052A /* AKNewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ADAC78219F86ED0096052A /* AKNewsListViewController.m */; };
 		41ADAC7C219F86ED0096052A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41ADAC7A219F86ED0096052A /* Main.storyboard */; };
 		41ADAC7E219F86F10096052A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41ADAC7D219F86F10096052A /* Assets.xcassets */; };
 		41ADAC81219F86F20096052A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41ADAC7F219F86F20096052A /* LaunchScreen.storyboard */; };
@@ -23,8 +23,8 @@
 		41ADAC71219F86ED0096052A /* NewsReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41ADAC74219F86ED0096052A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41ADAC75219F86ED0096052A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		41ADAC77219F86ED0096052A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		41ADAC78219F86ED0096052A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		41ADAC77219F86ED0096052A /* AKNewsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKNewsListViewController.h; sourceTree = "<group>"; };
+		41ADAC78219F86ED0096052A /* AKNewsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKNewsListViewController.m; sourceTree = "<group>"; };
 		41ADAC7B219F86ED0096052A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		41ADAC7D219F86F10096052A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41ADAC80219F86F20096052A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 				41ADAC8E219F91390096052A /* AKArticle.m */,
 				41ADAC74219F86ED0096052A /* AppDelegate.h */,
 				41ADAC75219F86ED0096052A /* AppDelegate.m */,
-				41ADAC77219F86ED0096052A /* ViewController.h */,
-				41ADAC78219F86ED0096052A /* ViewController.m */,
+				41ADAC77219F86ED0096052A /* AKNewsListViewController.h */,
+				41ADAC78219F86ED0096052A /* AKNewsListViewController.m */,
 				414ACA3121A3DD8800B38586 /* AKArticleDetailsViewController.h */,
 				414ACA3221A3DD8800B38586 /* AKArticleDetailsViewController.m */,
 				41ADAC7A219F86ED0096052A /* Main.storyboard */,
@@ -151,7 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41ADAC79219F86ED0096052A /* ViewController.m in Sources */,
+				41ADAC79219F86ED0096052A /* AKNewsListViewController.m in Sources */,
 				414ACA3321A3DD8800B38586 /* AKArticleDetailsViewController.m in Sources */,
 				41ADAC84219F86F20096052A /* main.m in Sources */,
 				41ADAC8F219F91390096052A /* AKArticle.m in Sources */,
