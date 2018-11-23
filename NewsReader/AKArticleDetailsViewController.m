@@ -22,12 +22,31 @@ NSString * const PLACEHOLDER_IMAGE_NAME = @"no-photo";
 @implementation AKArticleDetailsViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.articleTitle.text = self.article.title;
     self.articleContent.text = self.article.content;
     UIImage *noPhotoPlaceHolder = [UIImage imageNamed:PLACEHOLDER_IMAGE_NAME];
     [self.articleImage setImage:noPhotoPlaceHolder];
     
+    if (![self.article.urlToImage isEqual:[NSNull null]]) {
+        [self downloadArticleImage];
+    }else{
+        self.articleImage.hidden = YES;
+    }
+    
+}
+
+- (IBAction)readMoreAction:(id)sender {
+    
+    NSURL *url = [NSURL URLWithString:self.article.url];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    }
+    
+}
+- (void) downloadArticleImage {
+
     __weak typeof(self) weakSelf = self;
     NSURL *url = [NSURL URLWithString:self.article.urlToImage];
     NSURLSessionDownloadTask *downloadImageTask = [[NSURLSession sharedSession]
@@ -38,15 +57,8 @@ NSString * const PLACEHOLDER_IMAGE_NAME = @"no-photo";
                                                            [weakSelf.articleImage setImage:downloadedArticleImage];
                                                        });
                                                    }];
-
-    [downloadImageTask resume];
     
-}
+    [downloadImageTask resume];
 
-- (IBAction)readMoreAction:(id)sender {
-    NSURL *url = [NSURL URLWithString:self.article.url];
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-    }
 }
 @end

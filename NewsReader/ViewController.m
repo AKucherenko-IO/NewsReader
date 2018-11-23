@@ -11,11 +11,16 @@
 #import "AKArticle.h"
 #import "AKArticleDetailsViewController.h"
 
-NSString * const NEWS_URL = @"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
+#pragma mark - Constants
+
+//NSString * const NEWS_URL = @"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 //NSString * const  NEWS_URL = @"https://newsapi.org/v2/top-headlines?country=ru&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
+NSString * const  NEWS_URL = @"https://newsapi.org/v2/top-headlines?country=us&apiKey=78d11b972d4e44a6a8cb8f4be28ab907";
 NSString * const NAVIGATION_TITLE= @"Breaking news";
 NSString * const ARTICLE_IDENTIFIER = @"articleCell";
 NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+NSString * const REFRESH_STRING = @"Updating News";
+NSInteger const UPDATE_INTERVAL = 5*60 ;
 
 const NSInteger NUMBER_OF_SECTIONS = 1;
 
@@ -31,25 +36,39 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 @implementation ViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:DATE_FORMAT];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshNews:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
+    
     self.navigationItem.title = NAVIGATION_TITLE;
     
-    self.newsRecords = [[NSMutableArray alloc] init];
-    [self retrieveNews];
+
+    [self downloadNews];
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:UPDATE_INTERVAL target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     
 }
 
+- (void)timerFireMethod:(NSTimer *)timer {
+    
+    [self downloadNews];
+    NSLog(@"Timer executed");
+}
 
 #pragma mark - retrieveNews
-- (void)retrieveNews{
+- (void)downloadNews{
+
     NSLog(@"retrieveData");
 
     NSURL *url = [NSURL URLWithString:NEWS_URL];
-
+    
     __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
                                           dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -57,6 +76,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
                                                   NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                                                   if (!error) {
                                                       NSArray *recievedArticles = [jsonDictionary objectForKey:@"articles"];
+                                                      weakSelf.isStored = FALSE;
                                                       [weakSelf updateArticlesData:recievedArticles];
                                                   }
                                               dispatch_async(dispatch_get_main_queue(), ^{
@@ -72,11 +92,14 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
 }
 
 - (void)updateArticlesData:(NSArray *)articlesArray{
+
     if (!self.isStored) {
         NSDictionary *latestArticle = [articlesArray objectAtIndex:0];
-        self.storedPublishedAtDate = [latestArticle objectForKey:@"publishedAt"];
-        self.toRefreshData = TRUE;
+        NSString *latestArticleData = [latestArticle objectForKey:@"publishedAt"];
+        self.toRefreshData = [self shouldRefreshTableView:latestArticleData];
+        self.storedPublishedAtDate = latestArticleData;
         self.isStored = TRUE;
+        self.newsRecords = [[NSMutableArray alloc] init];
     }
     
     for (NSDictionary *articleHeader in articlesArray) {
@@ -102,38 +125,55 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
         
         [self.newsRecords addObject:article];
     }
+
 }
 
 - (BOOL) shouldRefreshTableView:(NSString *) publishedAt {
     
-    //    NSString *publishedAt = @"2018-11-22T00:19:29Z";
-        NSDateFormatter *publishedAtFormater = [[NSDateFormatter alloc] init];
-        [publishedAtFormater setDateFormat:DATE_FORMAT];
+//  NSString *publishedAt = @"2018-11-22T00:19:29Z";
+    NSDateFormatter *publishedAtFormater = [[NSDateFormatter alloc] init];
+    [publishedAtFormater setDateFormat:DATE_FORMAT];
+
+    NSDate *publishedAtDate = [publishedAtFormater dateFromString:publishedAt];
+    NSDate *storedPublishedAtDate = [publishedAtFormater dateFromString:self.storedPublishedAtDate];
+    NSString *publishedAtDateString = [publishedAtFormater stringFromDate:publishedAtDate];
+    NSString *storedPublishedAtDateString = [publishedAtFormater stringFromDate:storedPublishedAtDate];
     
-        NSDate *publishedAtDate = [publishedAtFormater dateFromString:publishedAt];
-        NSDate *storedPublishedAtDate = [publishedAtFormater dateFromString:self.storedPublishedAtDate];
+    if (![storedPublishedAtDate isEqualToDate:publishedAtDate]) {
+        NSLog(@"TRUE: %@ != %@",storedPublishedAtDateString,publishedAtDateString);
+        return TRUE;
+    } else {
+        NSLog(@"FALSE: %@ = %@",storedPublishedAtDateString,publishedAtDateString);
+        return FALSE;
+    }
+
+}
+
+# pragma mark - Refresh
+
+- (void) refreshNews:(UIRefreshControl *) refresh {
     
-        if ([[publishedAtDate laterDate:storedPublishedAtDate] isEqualToDate:publishedAtDate]) {
-            
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:REFRESH_STRING];
+    
+    NSLog(@"Refreshing");
+    
+    [self downloadNews];
+    
+    [refresh endRefreshing];
+    
 }
 #pragma mark - TableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return NUMBER_OF_SECTIONS;
+
 }
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//   
-//    return TITLE_FOR_HEADER_INSECTION;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return [self.newsRecords count];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,6 +190,7 @@ const NSInteger NUMBER_OF_SECTIONS = 1;
     cell.detailTextLabel.text = articleForRow.contentDescription;
     
     return cell;
+
 }
 
 #pragma mark - Navigation
