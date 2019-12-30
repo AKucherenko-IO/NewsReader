@@ -1,6 +1,12 @@
 # NewsReader
 Приложение для получения списка новостей с сайта-агрегатора новостей. 
 
+<figure class="video_container">
+  <video controls="true" allowfullscreen="false" poster="NewsReaderDemo.png">
+    <source src="NewsReaderDemo.mp4" type="video/mp4">
+  </video>
+</figure>
+
 ## Реализованы функции: 
 1. Загрузка списка новостей в фоновом режиме
 2. Просмотр списка  новостей с прокруткой и отображением заголовка
